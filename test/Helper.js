@@ -2,7 +2,7 @@ const web3 = require("web3");
 const { BigNumber } = require("ethers");
 const { ethers } = require("hardhat");
 const { getContractAddress } = require("ethers/lib/utils");
-
+const hre = require("hardhat");
 class TestHelper {
   users = {};
   contracts = {};
@@ -54,14 +54,30 @@ class TestHelper {
     //   tenMillion
     // );
 
-    // const Greeter = await ethers.getContractFactory("Greeter");
-    // const greeter = await Greeter.deploy();
-    // await greeter.deployed();
+    const Greeter = await ethers.getContractFactory("Greeter");
+    const greeter = await Greeter.deploy();
+    await greeter.deployed();
 
     const currentContracts = this.contracts || {};
     this.contracts = {
       ...currentContracts,
       ...{ weth, dai },
+    };
+  };
+  deploySimpleStore = async () => {
+    // await this._configureAccounts();
+    await this._deploySimpleStore();
+  };
+
+  _deploySimpleStore = async () => {
+    const SimpleStore = await ethers.getContractFactory("SimpleStore");
+    const simpleStore = await SimpleStore.deploy();
+    await simpleStore.deployed();
+
+    const currentContracts = this.contracts || {};
+    this.contracts = {
+      ...currentContracts,
+      ...{ simpleStore },
     };
   };
 

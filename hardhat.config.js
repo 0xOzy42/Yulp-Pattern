@@ -1,5 +1,7 @@
 const dotenv = require("dotenv");
 require("hardhat-gas-reporter");
+require("@tovarishfin/hardhat-yul");
+require("@nomiclabs/hardhat-waffle");
 dotenv.config();
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -18,6 +20,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  // paths: { cache: 'hh-cache' },
   solidity: {
     compilers: [
       {
@@ -59,7 +62,7 @@ module.exports = {
     },
     hardhat: {
       forking: {
-        url: `https://mainnet.infura.io/v3/XXXXXXXXXXXXXXXXXXXX`,
+        url: `https://mainnet.infura.io/v3/XXXXXXXXXXXXXXXXXXX`,
       },
     },
   },

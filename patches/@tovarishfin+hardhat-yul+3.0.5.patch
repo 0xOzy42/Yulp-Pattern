@@ -1,0 +1,49 @@
+diff --git a/node_modules/@tovarishfin/hardhat-yul/dist/compilation.js b/node_modules/@tovarishfin/hardhat-yul/dist/compilation.js
+index 52878ed..e5559ea 100644
+--- a/node_modules/@tovarishfin/hardhat-yul/dist/compilation.js
++++ b/node_modules/@tovarishfin/hardhat-yul/dist/compilation.js
+@@ -85,7 +85,7 @@ function getArtifactFromYulOutput(sourceName, output) {
+         _format: "hh-sol-artifact-1",
+         contractName,
+         sourceName,
+-        abi: [],
++        abi: output.abi,
+         bytecode: output.bytecode,
+         deployedBytecode: output.bytecode_runtime,
+         linkReferences: {},
+@@ -114,11 +114,17 @@ async function _compileYul(filepath, filename) {
+     const contractObjects = Object.keys(output.contracts["Target.yul"]);
+     const bytecode = "0x" +
+         output.contracts["Target.yul"][contractObjects[0]]["evm"]["bytecode"]["object"];
++    const deployedBytecode = "0x" +
++        output.contracts["Target.yul"][contractObjects[0]]["evm"]["deployedBytecode"]["object"];
++    const abi = source.signatures
++        .map((v) => v.abi.slice(4, -1))
++        .concat(source.topics.map((v) => v.abi.slice(6, -1)));
+     const contractCompiled = {
+         _format: "hh-sol-artifact-1",
+         sourceName: filename,
+-        abi: [],
++        abi: abi,
+         bytecode: bytecode,
++        bytecode_runtime: deployedBytecode,
+     };
+     return contractCompiled;
+ }
+@@ -145,6 +151,8 @@ async function _compileYulp(filepath, filename) {
+     const contractObjects = Object.keys(output.contracts["Target.yul"]);
+     const bytecode = "0x" +
+         output.contracts["Target.yul"][contractObjects[0]]["evm"]["bytecode"]["object"];
++    const deployedBytecode = "0x" +
++        output.contracts["Target.yul"][contractObjects[0]]["evm"]["deployedBytecode"]["object"];
+     const abi = source.signatures
+         .map((v) => v.abi.slice(4, -1))
+         .concat(source.topics.map((v) => v.abi.slice(6, -1)));
+@@ -153,6 +161,7 @@ async function _compileYulp(filepath, filename) {
+         sourceName: filename,
+         abi: abi,
+         bytecode: bytecode,
++        bytecode_runtime: deployedBytecode,
+     };
+     return contractCompiled;
+ }
