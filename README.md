@@ -1,15 +1,11 @@
-# Basic Sample Hardhat Project
+# Basic Sample Yul+ Hardhat
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
-
-Try running some of the following tasks:
+To compile Solidity files AND yul+ files, run :
 
 ```shell
-npx hardhat accounts
+npx yul-log hardhat
 npx hardhat compile
-npx hardhat clean
 npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
 ```
+
+This will compile .yulp contracts inside of a "Yul+ Contracts" Directory at the root of the project into hardhat solidity artifacts (Use sig"" to remain compatible). Command is still very much a WIP, however it will generate a partial artifact that fits with a hardhat Solidity artifact, and can be treated similarly. However this isn't fully supported at the moment so expect issues and frequent manual fixes.
