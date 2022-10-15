@@ -29,7 +29,7 @@
     "mainnet-forking": "npx hardhat node --fork https://mainnet.infura.io/v3/XXXXXXXXXXXXXXXXXXX",
     "dl": "npx hardhat run scripts/local/deploy.js --network localhost",
     "test": "npx hardhat test",
-    "compile": "npx yul-log hardhat",
+    "compile": "npx hardhat compile",
     "localnode": "npx hardhat node",
     "prettier": "npx prettier --write contracts/**/*.sol",
     "postinstall": "patch-package"
